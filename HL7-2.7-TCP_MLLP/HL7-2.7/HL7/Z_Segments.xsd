@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+****************************************************************** 
+****************************************************************** 
+* 
+* GitHub Repository: HL7-DFDL-2.7
+* Repo URL: https://github.com/MeshalSE/HL7-DFDL-2.7.git
+* Library Name: HL7-2.7-TCP_MLLP
+* Maintainer: MeshalSAlghamdi@outlook.com
+*
+* Description:
+* This is a custom version of the original IBM DFDL schema, specifically
+* modified for IBM App Connect to support HL7 v2.x messages over TCP
+* communication using the MLLP protocol.
+*
+******************************************************************* 
+* The schemas contained in this document are reproduced with the express permission of 
+* Health Level Seven (R) International. ALL RIGHTS RESERVED.
+*  
+* The schemas contain material derived from HL7 standards. 
+* HL7 standards can be obtained from the HL7 website: www.HL7.org
+*
+* Health Level Seven International and IBM hereby grant permission, to those obtaining 
+* a copy of these materials, to use, copy and modify the materials solely for use with DFDL processors.
+*
+* Copyright © 1999-2011, Health Level Seven.
+*
+* © Copyright International Business Machines Corporation, 2013. 
+*
+************************************************************************
+*
+* Version 1.0 	Z_Segments.xsd
+*
+* This DFDL schema is for use with the IIB v10 DFDL HL7 tutorial.
+*
+* This DFDL schema is one of a set of schemas that model HL7 v2.7.
+* It provides an extension point for modeling user-defined Z segments.   
+* 
+* To use the schema in another HL7 DFDL schema: 
+*   <xs:include schemaLocation="Z_Segments.xsd"/>
+*
+************************************************************************* 
+--><xsd:schema xmlns="urn:hl7-org:v2xml" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:ibmhl7="http://www.ibm.com/dfdl/HL7Format" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:hl7-org:v2xml">
+        
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/HL7Format" schemaLocation="HL7Format.xsd"/>
+        
+  
+  <xsd:include schemaLocation="fields.xsd"/>
+    	
+    
+  
+  <xsd:annotation>
+        		
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+            			
+      
+      <dfdl:format ref="ibmhl7:HL7Format"/>
+            		
+    
+    </xsd:appinfo>
+        	
+  
+  </xsd:annotation>
+      
+  
+  <xsd:group name="Z_Group">
+            
+    
+    <xsd:choice>
+                 
+      
+      <!-- Add user-defined segments in front of catch-all segment Zxx  
+      <xsd:element maxOccurs="1" minOccurs="1" ref="ZVX"/>
+      <xsd:element maxOccurs="1" minOccurs="1" ref="ZSX"/>
+      -->
+                  
+      
+      <xsd:element maxOccurs="1" minOccurs="1" ref="Zxx"/>
+                
+    
+    </xsd:choice>
+          
+  
+  </xsd:group>
+      
+  
+  
+  <!-- Do not remove Zxx - its acts as a catch-all for any unmodeled segments -->
+      
+    
+  
+  <xsd:complexType name="Zxx.CONTENT">
+                
+    
+    <xsd:sequence dfdl:ref="ibmhl7:HL7Segment" dfdl:separatorPosition="infix">
+                        
+      
+      <xsd:element dfdl:encoding="windows-1252" maxOccurs="unbounded" minOccurs="0" name="Remainder" type="xsd:string"/>
+                    
+    
+    </xsd:sequence>
+            
+  
+  </xsd:complexType>
+        
+  
+  <xsd:element dfdl:initiator="" dfdl:ref="ibmhl7:HL7SegmentTerminator" name="Zxx" type="Zxx.CONTENT"/>
+    	
+  
+  <!-- Add a complex type and element for each user-defined segment -->
+    	
+	 
+  
+  <!--      <xsd:complexType name="ZVX.CONTENT">
+        <xsd:sequence dfdl:ref="ibmhl7:HL7Segment" dfdl:separatorPosition="infix">
+           <xsd:element maxOccurs="1" minOccurs="0" name="fname" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="lname" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element dfdl:initiator="ZVX" dfdl:ref="ibmhl7:HL7SegmentTerminator" name="ZVX" type="ZVX.CONTENT"/>
+    -->
+    	 
+	 
+  
+  <!--  	    <xsd:complexType name="ZSX.CONTENT">
+        <xsd:sequence dfdl:ref="ibmhl7:HL7Segment" dfdl:separatorPosition="postfix">
+            <xsd:element maxOccurs="1" minOccurs="0" name="ZSXfname" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="ZSXlname" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element dfdl:initiator="ZSX" dfdl:ref="ibmhl7:HL7SegmentTerminator" name="ZSX" type="ZSX.CONTENT"/>
+    -->
+    
+
+</xsd:schema>

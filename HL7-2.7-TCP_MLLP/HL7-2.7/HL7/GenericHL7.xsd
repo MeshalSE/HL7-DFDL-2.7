@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+****************************************************************** 
+* 
+* GitHub Repository: HL7-DFDL-2.7
+* Repo URL: https://github.com/MeshalSE/HL7-DFDL-2.7.git
+* Library Name: HL7-2.7-TCP_MLLP
+* Maintainer: MeshalSAlghamdi@outlook.com
+*
+* Description:
+* This is a custom version of the original IBM DFDL schema, specifically
+* modified for IBM App Connect to support HL7 v2.x messages over TCP
+* communication using the MLLP protocol.
+*
+******************************************************************
+****************************************************************** 
+* 
+* The schemas contained in this document are reproduced with the express permission of 
+* Health Level Seven (R) International. ALL RIGHTS RESERVED.
+*  
+* The schemas contain material derived from HL7 standards. 
+* HL7 standards can be obtained from the HL7 website: www.HL7.org
+*
+* Health Level Seven International and IBM hereby grant permission, to those obtaining 
+* a copy of these materials, to use, copy and modify the materials solely for use with DFDL processors.
+*
+* Copyright © 1999-2011, Health Level Seven.
+*
+* © Copyright International Business Machines Corporation, 2013. 
+*
+************************************************************************
+*
+* Version 1.0 	GenericHL7.xsd
+*
+* This DFDL schema is for use with the IIB v10 DFDL HL7 tutorial.
+*
+* This DFDL schema is one of a set of schemas that model HL7 v2.7.
+* It provides a DFDL-annotated element to model an HL7 message in a generic manner. 
+* The generic HL7 message consists of an MSH segment followed by any number
+* of other HL7 segments or user-defined Z segments.   
+* 
+************************************************************************* 
+--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:hl7-org:v2xml" xmlns="urn:hl7-org:v2xml" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:hl7="urn:hl7-org:v2xml" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:ibmhl7="http://www.ibm.com/dfdl/HL7Format">
+
+    <xsd:import namespace="http://www.ibm.com/dfdl/HL7Format" schemaLocation="HL7Format.xsd"/>
+    <xsd:include schemaLocation="segments.xsd"/>
+
+    <xsd:annotation>
+		<xsd:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format ref="ibmhl7:HL7Format"/> <!-- From HL7Format.xsd-->
+		</xsd:appinfo>
+	</xsd:annotation>
+
+    <xsd:element dfdl:emptyValueDelimiterPolicy="none" dfdl:encoding="windows-1252" dfdl:fillByte="%#x0B;" dfdl:ignoreCase="yes" dfdl:initiator="" dfdl:leadingSkip="1" dfdl:outputNewLine="%CR;" dfdl:terminator="" dfdl:trailingSkip="0" ibmSchExtn:docRoot="true" name="HL7">
+        		    	<xsd:annotation/>
+        <xsd:complexType>
+		    		<xsd:sequence dfdl:initiator="" dfdl:outputNewLine="%CR;" dfdl:terminator="">
+		    			<xsd:element dfdl:byteOrder="bigEndian" dfdl:emptyValueDelimiterPolicy="both" dfdl:encoding="UTF-8" dfdl:outputNewLine="%CR;" dfdl:terminator="%NL;" ref="MSH"/>
+		    			<xsd:element dfdl:outputNewLine="%CR;" maxOccurs="unbounded" minOccurs="0" ref="anyHL7Segment"/>
+		    		</xsd:sequence>
+		    	</xsd:complexType> 
+    		</xsd:element>
+
+</xsd:schema>
